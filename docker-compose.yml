@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  rstudio:
+    image: davidmacer/rstudio
+    container_name: rstudio-votos
+    restart: always
+    volumes:
+      - type: volume
+        source: rstudio
+        target: /app
+      - type: bind
+        source: .
+        target: /home/rstudio
+    environment:
+      - PASSWORD=rstudio
+    ports:
+      - "8787:8787"
+
+volumes:
+  rstudio:
