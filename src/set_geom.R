@@ -26,6 +26,16 @@ votos_sf <- muni_sonora |>
            tolower()) |>
   left_join(votos)
 
+votos_sf <- votos_sf |>
+  mutate(NOMGEO = case_when(CVE_MUN == muni_sonora$CVE_MUN ~ NOMGEO))
+
+dir.create("resultados")
+
+votos_sf |>
+  st_write(dsn = "./resultados/votos_sf.geojson",
+           driver = "GeoJSON",
+           delete_layer = TRUE)
+
 # Haz una primera versión del mapa
 votos_sf |>
   select(VOTOS, geometry) |>
